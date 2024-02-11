@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+    <title>Lista de Compras</title>
+    <style>
+body {
+    
+    background-color: #101010;
+    color: #eee;
+    font-family: Tahoma, sans-serif;
+}
+
+h1 {
+    color: #1db954;
+}
+
+.container{
+    padding: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.item{
+    left: 0px;
+    top: 0px;
+}
+
+.x {
+    background-color: #dd3333;
+    color: #eee;
+    position:absolute;
+    right: 0px;
+    top: 0px;
+    padding: 5px;
+    text-decoration: none;
+    border-radius: 5px;
+    
+}
+
+.button {
+    position: absolute;
+    width: auto;
+    margin-top: 50px;
+    background-color: #1db954;
+    color: #202020;
+    margin-left: 0px;
+    padding-left: 35%;
+    padding-right: 35%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+input{
+    margin-left: 20px;
+    background-color: #202020;
+    color: #eee;
+    width: 65px;
+    border-radius: 5px;
+}
+
+select {
+    position: relative;
+    background-color: #202020;
+    color: #eee;
+    width: 65px;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 25px;
+    }
+}
+
+    </style>
+    <script>
+        function atualizarItem(item_id) {
+            var quantidade = document.getElementById('quantidade_' + item_id).value;
+            var unidade = document.getElementById('unidade_' + item_id).value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/atualizar-item', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    console.log('Item atualizado');
+                }
+            }
+            xhr.send('item_id=' + item_id + '&quantidade=' + quantidade + '&unidade=' + unidade);
+        }
+    </script>
+</head>
+<body>
+    <h1>Lista de Compras</h1>
+    {% for categoria in categorias %}
+        <h3>{{ categoria }}</h3>
+        {% for item in itens if item.categoria == categoria %}
+            <div class="container">
+                <div class="item">
+                    {{ item.nome }}
+                </div>
+                <input type="number" id="quantidade_{{ item.id }}" value="{{ item.quantidade or '' }}" placeholder="Quantidade" onchange="atualizarItem({{ item.id }})">
+                <select id="unidade_{{ item.id }}" onchange="atualizarItem({{ item.id }})">
+                    <option value="unidade" {% if item.unidade == 'und' %}selected{% endif %}>Und</option>
+                    <option value="kilos" {% if item.unidade == 'kg' %}selected{% endif %}>Kg</option>
+                    <option value="gramas" {% if item.unidade == 'g' %}selected{% endif %}>g</option>
+                    <option value="fardo" {% if item.unidade == 'fd' %}selected{% endif %}>Fardo</option>
+                    <option value="peça" {% if item.unidade == 'pç' %}selected{% endif %}>Peça</option>
+                    <option value="caixa" {% if item.unidade == 'cx' %}selected{% endif %}>Caixa</option>
+                    <option value="pacote" {% if item.unidade == 'pct' %}selected{% endif %}>Pacote</option>
+                </select>
+                <a class="x" href="{{ url_for('remover', item_id=item.id) }}">x</a>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <a class="button" href="{{ url_for('resetar') }}">Resetar Lista</a>
+</body>
+</html>

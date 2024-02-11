@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <title>Visualização da Lista de Compras</title>
+    <script>
+        function atualizarLista() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/dados-atualizados', true);
+            xhr.onreadystatechange = function() {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    var dados = JSON.parse(this.responseText);
+                    var listaHtml = '';
+                    for (var i = 0; i < dados.length; i++) {
+                        listaHtml += '<li>' + dados[i].nome;
+                        if (dados[i].quantidade) {
+                            listaHtml += ' - ' + dados[i].quantidade;
+                            if (dados[i].unidade) {
+                                listaHtml += ' ' + dados[i].unidade;
+                            }
+                        }
+                        listaHtml += '</li>';
+                    }
+                    document.getElementById('lista').innerHTML = listaHtml;
+                }
+            }
+            xhr.send();
+        }
+
+        // Atualizar a lista a cada 30 segundos
+        setInterval(atualizarLista, 5000);
+
+        // Atualizar a lista ao carregar a página
+        window.onload = atualizarLista;
+    </script>
+</head>
+<body>
+    <h1>Lista de Compras</h1>
+    <ul id="lista">
+    </ul>
+</body>
+</html>
+
