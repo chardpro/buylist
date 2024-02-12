@@ -39,6 +39,14 @@
             text-decoration: line-through;
         }
 
+        .nome-item {
+            font-weight: bold; /* Negrito para o nome do item */
+        }
+
+        .quantidade-item {
+            font-weight: normal; /* Normal para a quantidade */
+        }
+
         @media (max-width: 600px) {
             html{
                 width: auto;
@@ -62,14 +70,9 @@
                 var dados = JSON.parse(this.responseText);
                 var listaHtml = '';
                 for (var i = 0; i < dados.length; i++) {
-                    listaHtml += '<li class="item"><input type="checkbox" id="item_' + i + '" onclick="toggleItemChecked(this)"><label for="item_' + i + '">' + dados[i].nome;
-                    if (dados[i].quantidade) {
-                        listaHtml += ' - ' + dados[i].quantidade;
-                        if (dados[i].unidade) {
-                            listaHtml += ' ' + dados[i].unidade;
-                        }
-                    }
-                    listaHtml += '</label></li>';
+                    var nomeItemHtml = '<span class="nome-item">' + dados[i].nome + '</span>';
+                    var quantidadeItemHtml = dados[i].quantidade ? '<span class="quantidade-item"> - ' + dados[i].quantidade + ' ' + (dados[i].unidade || '') + '</span>' : '';
+                    listaHtml += '<li class="item"><input type="checkbox" id="item_' + dados[i].id + '" onclick="toggleItemChecked(this)"> <label for="item_' + dados[i].id + '">' + nomeItemHtml + quantidadeItemHtml + '</label></li>';
                 }
                 document.getElementById('lista').innerHTML = listaHtml;
             }
@@ -77,15 +80,26 @@
         xhr.send();
     }
 
-    function toggleItemChecked(checkbox) {
-        var label = checkbox.nextSibling;
-        if (checkbox.checked) {
-            label.classList.add('item-checked');
-        } else {
-            label.classList.remove('item-checked');
+    window.onload = atualizarLista;
+
+   function toggleItemChecked(checkbox) {
+    var item = checkbox.closest('.item');
+    var nomeItem = item.querySelector('.nome-item');
+    var quantidadeItem = item.querySelector('.quantidade-item');
+    
+    if (checkbox.checked) {
+        nomeItem.classList.add('item-checked');
+        if (quantidadeItem) {
+            quantidadeItem.classList.add('item-checked');
+        }
+    } else {
+        nomeItem.classList.remove('item-checked');
+        if (quantidadeItem) {
+            quantidadeItem.classList.remove('item-checked');
         }
     }
+}
 
-    window.onload = atualizarLista;
+
 </script>
 </html>
