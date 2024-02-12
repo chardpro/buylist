@@ -40,7 +40,9 @@
             position:absolute;
             right: 0px;
             top: 0px;
-            padding: 3px;
+            padding-left: 5px;
+            padding-right: 5px;
+            padding-bottom: 5px;
             text-decoration: none;
             border-radius: 2px;
             
@@ -50,17 +52,18 @@
             margin-left: 20px;
             background-color: #202020;
             padding: 10px;
+            font-size: 15px;
             color: #eee;
-            width: 50px;
+            width: 30px;
             border-radius: 5px;
         }
         
         select {
-            position: relative;
             background-color: #202020;
-            padding: 5px;
+            padding: 10px;
             color: #eee;
-            width: 65px;
+            font-size: 15px;
+            width: 70px;
             margin-left: 10px;
             border-radius: 5px;
         }
@@ -91,7 +94,7 @@
     <title>Lista de Compras</title>
 </head>
 <body class="body">
-    <h1 class="h1">Lista de Compras</h1>
+    <h1 class="h1">Lista</h1>
     {% for categoria in categorias %}
         <h3>{{ categoria }}</h3>
         {% for item in itens if item.categoria == categoria %}
@@ -116,7 +119,7 @@
 
     <div class="button">
 
-        <a href="{{ url_for('resetar') }}">Resetar Lista</a>
+        <a href="{{ url_for('resetar') }}">RESETAR LISTA</a>
 
     </div>
     
