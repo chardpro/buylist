@@ -33,7 +33,15 @@
             left: 0px;
             top: 0px;
         }
-        
+
+        .item-nome {
+            color: gray; /* Cor padrão cinza */
+        }
+
+        .item-nome-preenchido {
+            color: white; /* Cor branca quando preenchido */
+        }
+
         .x {
             background-color: #dd3333;
             color: #eee;
@@ -100,18 +108,19 @@
         {% for item in itens if item.categoria == categoria %}
             <div class="container">
                 <div class="item">
-                    {{ item.nome }}
+                    <div class="item-nome" id="nome_{{ item.id }}">{{ item.nome }}</div>
                 </div>
-                <input type="number" id="quantidade_{{ item.id }}" value="{{ item.quantidade or '' }}" placeholder="Qtd" onchange="atualizarItem({{ item.id }})">
+                <input type="number" id="quantidade_{{ item.id }}" value="{{ item.quantidade or '' }}" placeholder="Qtd" oninput="verificarPreenchimento({{ item.id }})" onchange="atualizarItem({{ item.id }})">
+    
                 <select id="unidade_{{ item.id }}" onchange="atualizarItem({{ item.id }})">
-                    <option value="unidade" {% if item.unidade == 'und' %}selected{% endif %}>Und</option>
-                    <option value="kilos" {% if item.unidade == 'kg' %}selected{% endif %}>Kg</option>
-                    <option value="gramas" {% if item.unidade == 'g' %}selected{% endif %}>g</option>
-                    <option value="fardo" {% if item.unidade == 'fd' %}selected{% endif %}>Fardo</option>
-                    <option value="peça" {% if item.unidade == 'pç' %}selected{% endif %}>Peça</option>
-                    <option value="caixa" {% if item.unidade == 'cx' %}selected{% endif %}>Caixa</option>
-                    <option value="pacote" {% if item.unidade == 'pct' %}selected{% endif %}>Pacote</option>
-                </select>
+                    <option value="unidade" {% if item.unidade == 'unidade' %}selected{% endif %}>Und</option>
+                    <option value="kilos" {% if item.unidade == 'kilos' %}selected{% endif %}>Kg</option>
+                    <option value="gramas" {% if item.unidade == 'gramas' %}selected{% endif %}>g</option>
+                    <option value="fardo" {% if item.unidade == 'fardo' %}selected{% endif %}>Fardo</option>
+                    <option value="peça" {% if item.unidade == 'peça' %}selected{% endif %}>Peça</option>
+                    <option value="caixa" {% if item.unidade == 'caixa' %}selected{% endif %}>Caixa</option>
+                    <option value="pacote" {% if item.unidade == 'pacote' %}selected{% endif %}>Pacote</option>
+                </select>                
                 <a class="x" href="{{ url_for('remover', item_id=item.id) }}">x</a>
             </div>
         {% endfor %}
@@ -138,6 +147,25 @@
             }
         }
         xhr.send('item_id=' + item_id + '&quantidade=' + quantidade + '&unidade=' + unidade);
+    }
+
+    function verificarPreenchimento(item_id) {
+    var inputQuantidade = document.getElementById('quantidade_' + item_id);
+    var nomeItem = document.getElementById('nome_' + item_id);
+
+    if (inputQuantidade.value != '') {
+        nomeItem.classList.add('item-nome-preenchido');
+    } else {
+        nomeItem.classList.remove('item-nome-preenchido');
+    }
+    }
+
+    window.onload = function() {
+    var todosInputs = document.querySelectorAll('input[type="number"]');
+    todosInputs.forEach(function(input) {
+        var item_id = input.id.split('_')[1];
+        verificarPreenchimento(item_id);
+    })
     }
 </script>
 </html>
