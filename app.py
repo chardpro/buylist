@@ -15,7 +15,7 @@ categorias = [
 
 itens_por_categoria = {
     "MASSA E MOLHOS": ["Farinha", "Ovo", "Manteiga", "Fermento", "Sal", "Açucar", "Leite", "Molho de Tomate"],
-    "LATICÍNIOS": ["Queijo Mussarela", "Queijo Provolone", "Requeijão Mtg", "Requeijão Brd", "Cheddar", "Creme de Leite"],
+    "LATICÍNIOS": ["Queijo Mussarela", "Queijo Provolone", "Requeijão Montagem", "Requeijão Borda", "Cheddar", "Creme de Leite"],
     "CARNES E FRIOS": ["Calabresa", "Presunto", "Frango", "Atum", "Sardinha", "Salaminho", "Pepperoni", "Salsicha", "Bacon", "Carne Seca"],
     "VEGETAIS E VERDURAS": ["Cebola", "Tomate", "Pimentão", "Banana", "Azeitona", "Palmito", "Milho"],
     "TEMPEROS E ESPECIARIAS": ["Orégano", "Azeite", "Alho", "Sazon", "Coloral", "Canela"],
