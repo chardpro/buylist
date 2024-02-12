@@ -1,42 +1,91 @@
 <!doctype html>
 <html>
 <head>
-    <title>Visualização da Lista de Compras</title>
-    <script>
-        function atualizarLista() {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/dados-atualizados', true);
-            xhr.onreadystatechange = function() {
-                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                    var dados = JSON.parse(this.responseText);
-                    var listaHtml = '';
-                    for (var i = 0; i < dados.length; i++) {
-                        listaHtml += '<li>' + dados[i].nome;
-                        if (dados[i].quantidade) {
-                            listaHtml += ' - ' + dados[i].quantidade;
-                            if (dados[i].unidade) {
-                                listaHtml += ' ' + dados[i].unidade;
-                            }
-                        }
-                        listaHtml += '</li>';
-                    }
-                    document.getElementById('lista').innerHTML = listaHtml;
-                }
-            }
-            xhr.send();
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lista de Compras</title>
+    <style>
+        
+        body {
+            background-color: #101010;
+            font-size: 30px;
+            color: #eee;
+            font-family: Tahoma, sans-serif;
+            margin: 0;
+            padding: 20px;
         }
 
-        // Atualizar a lista a cada 30 segundos
-        setInterval(atualizarLista, 5000);
+        h1 {
+            color: #1db954;
+            text-align: center;
+        }
 
-        // Atualizar a lista ao carregar a página
-        window.onload = atualizarLista;
-    </script>
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .item input[type="checkbox"] {
+            margin-right: 20px;
+        }
+
+        .item-checked {
+            color: rgb(71, 71, 71);
+            text-decoration: line-through;
+        }
+
+        @media (max-width: 600px) {
+            html{
+                width: auto;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Lista de Compras</h1>
+    <h1>Lista</h1>
     <ul id="lista">
+        <!-- Itens serão inseridos aqui pelo JavaScript -->
     </ul>
 </body>
-</html>
 
+<script>
+    function atualizarLista() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/dados-atualizados', true);
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                var dados = JSON.parse(this.responseText);
+                var listaHtml = '';
+                for (var i = 0; i < dados.length; i++) {
+                    listaHtml += '<li class="item"><input type="checkbox" id="item_' + i + '" onclick="toggleItemChecked(this)"><label for="item_' + i + '">' + dados[i].nome;
+                    if (dados[i].quantidade) {
+                        listaHtml += ' - ' + dados[i].quantidade;
+                        if (dados[i].unidade) {
+                            listaHtml += ' ' + dados[i].unidade;
+                        }
+                    }
+                    listaHtml += '</label></li>';
+                }
+                document.getElementById('lista').innerHTML = listaHtml;
+            }
+        }
+        xhr.send();
+    }
+
+    function toggleItemChecked(checkbox) {
+        var label = checkbox.nextSibling;
+        if (checkbox.checked) {
+            label.classList.add('item-checked');
+        } else {
+            label.classList.remove('item-checked');
+        }
+    }
+
+    window.onload = atualizarLista;
+</script>
+</html>
