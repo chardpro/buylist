@@ -40,29 +40,16 @@
             position:absolute;
             right: 0px;
             top: 0px;
-            padding: 5px;
+            padding: 3px;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 2px;
             
-        }
-        
-        .button {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            margin: 0px;
-            padding: 0px;
-            background-color: #1db954;
-            color: #202020;
-            font-weight: 800;
-            text-decoration: none;
-            border-radius: 5px;
         }
         
         input{
             margin-left: 20px;
             background-color: #202020;
-            padding: 5px;
+            padding: 10px;
             color: #eee;
             width: 50px;
             border-radius: 5px;
@@ -76,6 +63,20 @@
             width: 65px;
             margin-left: 10px;
             border-radius: 5px;
+        }
+
+        .button {
+            text-align: center;
+            margin-top: 50px;
+            padding: 10px;
+            background-color: #1db954;
+            border-radius: 5px;
+        }
+
+        a {
+            color: #202020;
+            font-weight: 800;
+            text-decoration: none;
         }
         
         @media screen and (max-width: 600px) {
@@ -98,7 +99,7 @@
                 <div class="item">
                     {{ item.nome }}
                 </div>
-                <input type="number" id="quantidade_{{ item.id }}" value="{{ item.quantidade or '' }}" placeholder="Quantidade" onchange="atualizarItem({{ item.id }})">
+                <input type="number" id="quantidade_{{ item.id }}" value="{{ item.quantidade or '' }}" placeholder="Qtd" onchange="atualizarItem({{ item.id }})">
                 <select id="unidade_{{ item.id }}" onchange="atualizarItem({{ item.id }})">
                     <option value="unidade" {% if item.unidade == 'und' %}selected{% endif %}>Und</option>
                     <option value="kilos" {% if item.unidade == 'kg' %}selected{% endif %}>Kg</option>
@@ -112,7 +113,13 @@
             </div>
         {% endfor %}
     {% endfor %}
-    <a class="button" href="{{ url_for('resetar') }}">Resetar Lista</a>
+
+    <div class="button">
+
+        <a href="{{ url_for('resetar') }}">Resetar Lista</a>
+
+    </div>
+    
 </body>
 <script>
     function atualizarItem(item_id) {
