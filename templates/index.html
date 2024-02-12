@@ -1,115 +1,168 @@
 <!doctype html>
 <html>
 <head>
-    <title>Lista de Compras</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <style>
-body {
     
-    background-color: #101010;
-    color: #eee;
-    font-family: Tahoma, sans-serif;
-}
-
-h1 {
-    color: #1db954;
-}
-
-.container{
-    padding: 5px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-.item{
-    left: 0px;
-    top: 0px;
-}
-
-.x {
-    background-color: #dd3333;
-    color: #eee;
-    position:absolute;
-    right: 0px;
-    top: 0px;
-    padding: 5px;
-    text-decoration: none;
-    border-radius: 5px;
-    
-}
-
-.button {
-    position: absolute;
-    width: auto;
-    margin-top: 50px;
-    background-color: #1db954;
-    color: #202020;
-    margin-left: 0px;
-    padding-left: 35%;
-    padding-right: 35%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-input{
-    margin-left: 20px;
-    background-color: #202020;
-    color: #eee;
-    width: 65px;
-    border-radius: 5px;
-}
-
-select {
-    position: relative;
-    background-color: #202020;
-    color: #eee;
-    width: 65px;
-    margin-left: 10px;
-    border-radius: 5px;
-}
-
-@media (min-width: 348px) {
-  body {
-        padding: 20px;
-    }
-
-    h1 {
-        font-size: 24px;
-    }
-
-    a, button {
-        padding: 15px 20px;
-        font-size: 18px;
-    }
-
-    input, select {
-        padding: 15px;
-        font-size: 18px;
-    }
-}
-
-    </style>
-    <script>
-        function atualizarItem(item_id) {
-            var quantidade = document.getElementById('quantidade_' + item_id).value;
-            var unidade = document.getElementById('unidade_' + item_id).value;
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/atualizar-item', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function() {
-                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                    console.log('Item atualizado');
-                }
-            }
-            xhr.send('item_id=' + item_id + '&quantidade=' + quantidade + '&unidade=' + unidade);
+        html {
+        scroll-behavior: smooth;
         }
-    </script>
+        
+        body {
+            
+            background-color: #101010;
+            color: #eee;
+            font-family: Tahoma, sans-serif;
+        }
+        
+        h1 {
+            color: #1db954;
+        }
+        
+        .container{
+            padding: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .item{
+            left: 0px;
+            top: 0px;
+        }
+        
+        .x {
+            background-color: #dd3333;
+            color: #eee;
+            position:absolute;
+            right: 0px;
+            top: 0px;
+            padding: 5px;
+            text-decoration: none;
+            border-radius: 5px;
+            
+        }
+        
+        .button {
+            position: absolute;
+            width: auto;
+            margin-top: 50px;
+            background-color: #1db954;
+            color: #202020;
+            margin-left: 0px;
+            padding-left: 35%;
+            padding-right: 35%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        input{
+            margin-left: 20px;
+            background-color: #202020;
+            color: #eee;
+            width: 65px;
+            border-radius: 5px;
+        }
+        
+        select {
+            position: relative;
+            background-color: #202020;
+            color: #eee;
+            width: 65px;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+        
+        @media screen and (max-width: 600px) {
+            @media (max-width: 600px) {
+        
+        *{
+            width: auto;
+        }
+        
+        html {
+        scroll-behavior: smooth;
+        }
+        
+        body {
+            
+            background-color: #101010;
+            color: #eee;
+            font-family: Tahoma, sans-serif;
+        }
+        
+        h1 {
+            color: #1db954;
+        }
+        
+        .container{
+            padding: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .item{
+            left: 0px;
+            top: 0px;
+        }
+        
+        .x {
+            background-color: #dd3333;
+            color: #eee;
+            position:absolute;
+            right: 0px;
+            top: 0px;
+            padding: 5px;
+            text-decoration: none;
+            border-radius: 5px;
+            
+        }
+        
+        .button {
+            position: absolute;
+            width: auto;
+            margin-top: 50px;
+            background-color: #1db954;
+            color: #202020;
+            margin-left: 0px;
+            padding-left: 35%;
+            padding-right: 35%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        input{
+            margin-left: 20px;
+            background-color: #202020;
+            color: #eee;
+            width: 65px;
+            border-radius: 5px;
+        }
+        
+        select {
+            position: relative;
+            background-color: #202020;
+            color: #eee;
+            width: 65px;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+    
+    }   
+
+}
+    </style>
+
+    <title>Lista de Compras</title>
 </head>
-<body>
-    <h1>Lista de Compras</h1>
+<body class="body">
+    <h1 class="h1">Lista de Compras</h1>
     {% for categoria in categorias %}
         <h3>{{ categoria }}</h3>
         {% for item in itens if item.categoria == categoria %}
@@ -133,4 +186,20 @@ select {
     {% endfor %}
     <a class="button" href="{{ url_for('resetar') }}">Resetar Lista</a>
 </body>
+<script>
+    function atualizarItem(item_id) {
+        var quantidade = document.getElementById('quantidade_' + item_id).value;
+        var unidade = document.getElementById('unidade_' + item_id).value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/atualizar-item', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                console.log('Item atualizado');
+            }
+        }
+        xhr.send('item_id=' + item_id + '&quantidade=' + quantidade + '&unidade=' + unidade);
+    }
+</script>
 </html>
